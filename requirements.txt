@@ -1,0 +1,5 @@
+Cython==0.29.15
+opencv-python==4.3.0.36
+numpy==1.19.1
+tensorflow==2.2.0
+tqdm=4.42.0
