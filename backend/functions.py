@@ -1,16 +1,17 @@
 from typing import Dict, List
 from data_models import Product, Color
 
-def get_top_n_products(cluster1: int, cluster2: int, n: int, fashion_data: Dict) -> List[Product]:
+def get_top_n_products(cluster1: int, cluster2: int, n: int, fashion_data: Dict, **kwargs) -> List[Product]:
   assert n >= 0, "n must be positive"
   
   results = []
+  base_path = kwargs.get("base_path", "")
   for k, v in fashion_data.items():
     if v['cluster_C1'] is None or v['cluster_C2'] is None:
       continue
     
     if int(v['cluster_C1']) == cluster1 and int(v['cluster_C2']) == cluster2:
-      results.append(Product(image=v['image_id'],
+      results.append(Product(image=f"{base_path}{v['image_id']}",
                              pattern=v['pttrn_type'],
                              avg_rating=v['avg_rating'],
                              n_reviews=v['no_of_reviews'],

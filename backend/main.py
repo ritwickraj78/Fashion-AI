@@ -1,11 +1,14 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 from typing import List
 
 from data_loader import style_trends, color_model1, color_model2, fashion_data
 from data_models import Styles, StyleList, StyleTrend, Trend, Color, Product
 from functions import get_top_n_products
 
+STATIC = "/static/"
 app = FastAPI()
+app.mount(STATIC, StaticFiles(directory="static"), name="static")
 
 @app.get('/')
 def index():
@@ -26,5 +29,5 @@ def color_prediction(color1: Color, color2: Color):
   cluster1 = int(color_model1.predict([[color1.r, color1.g, color1.b]]))
   cluster2 = int(color_model2[cluster1].predict([[color2.r, color2.g, color2.b]]))
   
-  top_k = get_top_n_products(cluster1, cluster2, 10, fashion_data)
+  top_k = get_top_n_products(cluster1, cluster2, 10, fashion_data, base_path=STATIC)
   return top_k
