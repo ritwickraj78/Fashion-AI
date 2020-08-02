@@ -34,4 +34,6 @@ class Product(BaseModel):
   avg_rating: float
   n_reviews: int
   trend: float
+  color1: Color
+  color2: Color
   color3: Color

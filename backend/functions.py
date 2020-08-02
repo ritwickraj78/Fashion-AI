@@ -15,6 +15,8 @@ def get_top_n_products(cluster1: int, cluster2: int, n: int, fashion_data: Dict)
                              pattern=v['pttrn_type'],
                              avg_rating=v['avg_rating'],
                              n_reviews=v['no_of_reviews'],
+                             color1=Color(r=v['R1'], g=v['G1'], b=v['B1']),
+                             color2=Color(r=v['R2'], g=v['G2'], b=v['B2']),
                              color3=Color(r=v['Color_3'][0], g=v['Color_3'][1], b=v['Color_3'][2]),
                              trend=v['Trend']))
   return sorted(results, key=lambda p: p.trend, reverse=True)[:n]
