@@ -1,24 +1,40 @@
 import React, { Component } from "react";
-import ChartistGraph from "react-chartist";
-import { Grid, Row, Col } from "react-bootstrap";
-
+import { Grid, Row, Col} from "react-bootstrap";
+import Chart from "react-google-charts";
 import { Card } from "components/Card/Card.jsx";
+import { DropdownButton, MenuItem } from "react-bootstrap";
 import { StatsCard } from "components/StatsCard/StatsCard.jsx";
-import { Tasks } from "components/Tasks/Tasks.jsx";
 import {
-  dataPie,
-  legendPie,
-  dataSales,
-  optionsSales,
-  responsiveSales,
-  legendSales,
-  dataBar,
-  optionsBar,
-  responsiveBar,
-  legendBar
+  casual,
+  bohoChic,
+  elegant,
+  sexy,
+  responsiveData,
+  legendData,
+  Stylemenu,
 } from "variables/Variables.jsx";
 
+
 class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      styleName : "Boho-Chic",
+      styleData: bohoChic,
+      styleOptions: {
+        title: "Trend",
+        vAxis: { viewWindowMode: "explicit", viewWindow: { min: 0 } },
+        curveType: "line",
+        legend: { position: "bottom" },
+      },
+    };
+  }
+
+  handleSelect=(e)=>{
+    console.log(1);
+  }
+
   createLegend(json) {
     var legend = [];
     for (var i = 0; i < json["names"].length; i++) {
@@ -29,128 +45,107 @@ class Dashboard extends Component {
     }
     return legend;
   }
+
   render() {
     return (
       <div className="content">
         <Grid fluid>
           <Row>
-            <Col lg={3} sm={6}>
+            <Col lg={4} sm={6}>
               <StatsCard
                 bigIcon={<i className="pe-7s-server text-warning" />}
-                statsText="Capacity"
-                statsValue="105GB"
+                statsText="Items Scraped"
+                statsValue="2k+"
                 statsIcon={<i className="fa fa-refresh" />}
-                statsIconText="Updated now"
+                statsIconText="Updated recently"
               />
             </Col>
-            <Col lg={3} sm={6}>
+            <Col lg={4} sm={6}>
               <StatsCard
-                bigIcon={<i className="pe-7s-wallet text-success" />}
-                statsText="Revenue"
-                statsValue="$1,345"
-                statsIcon={<i className="fa fa-calendar-o" />}
-                statsIconText="Last day"
-              />
-            </Col>
-            <Col lg={3} sm={6}>
-              <StatsCard
-                bigIcon={<i className="pe-7s-graph1 text-danger" />}
-                statsText="Errors"
-                statsValue="23"
-                statsIcon={<i className="fa fa-clock-o" />}
-                statsIconText="In the last hour"
-              />
-            </Col>
-            <Col lg={3} sm={6}>
-              <StatsCard
-                bigIcon={<i className="fa fa-twitter text-info" />}
-                statsText="Followers"
-                statsValue="+45"
+                bigIcon={<i className="pe-7s-global text-success" />}
+                statsText="Website"
+                statsValue="Shein"
                 statsIcon={<i className="fa fa-refresh" />}
-                statsIconText="Updated now"
+                statsIconText="Updated recently"
+              />
+            </Col>
+            <Col lg={4} sm={6}>
+              <StatsCard
+                bigIcon={<i className="pe-7s-timer text-success" />}
+                statsText="Analysed data from"
+                statsValue="Jan,'18"
+                statsIcon={<i className="fa fa-area-chart" />}
+                statsIconText="Updated last month"
               />
             </Col>
           </Row>
+
           <Row>
-            <Col md={8}>
+            <Col lg={12}>
+              <DropdownButton bsStyle="default" title="Styles">
+                {Stylemenu.map((obj) => {
+                  return (
+                    <MenuItem
+                      onSelect={(event) => {
+                        if(obj=="Boho-chic")
+                          this.setState({styleData: bohoChic});
+                        else if(obj=="Sexy")
+                          this.setState({ styleData: sexy });
+                        else if(obj=="Casual")
+                          this.setState({ styleData: casual });
+                        else if(obj=="Elegant")
+                          this.setState({ styleData: elegant });
+                        this.setState({ styleName: obj});
+                        console.log(obj)
+                      }}>
+                      {obj}
+                    </MenuItem>
+                  );
+                })}
+              </DropdownButton>
               <Card
                 statsIcon="fa fa-history"
                 id="chartHours"
-                title="Users Behavior"
-                category="24 Hours performance"
-                stats="Updated 3 minutes ago"
+                title="Style Trends for Women's Tops"
+                category={this.state.styleName}
+                stats="Updated till April,2020"
                 content={
                   <div className="ct-chart">
-                    <ChartistGraph
-                      data={dataSales}
-                      type="Line"
-                      options={optionsSales}
-                      responsiveOptions={responsiveSales}
+                    <Chart
+                      chartType="LineChart"
+                      width="100%"
+                      height="105%"
+                      data={this.state.styleData}
+                      options={this.state.styleOptions}
                     />
                   </div>
-                }
-                legend={
-                  <div className="legend">{this.createLegend(legendSales)}</div>
-                }
-              />
-            </Col>
-            <Col md={4}>
-              <Card
-                statsIcon="fa fa-clock-o"
-                title="Email Statistics"
-                category="Last Campaign Performance"
-                stats="Campaign sent 2 days ago"
-                content={
-                  <div
-                    id="chartPreferences"
-                    className="ct-chart ct-perfect-fourth"
-                  >
-                    <ChartistGraph data={dataPie} type="Pie" />
-                  </div>
-                }
-                legend={
-                  <div className="legend">{this.createLegend(legendPie)}</div>
                 }
               />
             </Col>
           </Row>
 
           <Row>
-            <Col md={6}>
+            <Col lg={12}>
               <Card
-                id="chartActivity"
-                title="2014 Sales"
-                category="All products including Taxes"
-                stats="Data information certified"
-                statsIcon="fa fa-check"
+                statsIcon="fa fa-history"
+                id="chartHours"
+                title="Style Trends"
+                category={this.state.styleName}
+                stats="Updated 3 minutes ago"
                 content={
                   <div className="ct-chart">
-                    <ChartistGraph
-                      data={dataBar}
-                      type="Bar"
-                      options={optionsBar}
-                      responsiveOptions={responsiveBar}
+                    <Chart
+                      chartType="LineChart"
+                      width="100%"
+                      height="350px"
+                      data={this.state.styleData}
+                      options={this.state.styleOptions}
+                      responsiveOptions={responsiveData}
                     />
                   </div>
                 }
                 legend={
-                  <div className="legend">{this.createLegend(legendBar)}</div>
-                }
-              />
-            </Col>
-
-            <Col md={6}>
-              <Card
-                title="Tasks"
-                category="Backend development"
-                stats="Updated 3 minutes ago"
-                statsIcon="fa fa-history"
-                content={
-                  <div className="table-full-width">
-                    <table className="table">
-                      <Tasks />
-                    </table>
-                  </div>
+                  <div className="legend">{this.createLegend(legendData)}</div>
                 }
               />
             </Col>
