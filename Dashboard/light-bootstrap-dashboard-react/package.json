@@ -9,6 +9,7 @@
     "react": "16.8.6",
     "react-bootstrap": "^0.32.4",
     "react-chartist": "0.13.3",
+    "react-color": "^2.18.1",
     "react-dom": "16.8.6",
     "react-google-charts": "^3.0.15",
     "react-google-maps": "9.4.5",

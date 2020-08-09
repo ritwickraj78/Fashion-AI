@@ -87,13 +87,13 @@ class Dashboard extends Component {
                   return (
                     <MenuItem
                       onSelect={(event) => {
-                        if(obj=="Boho-chic")
+                        if(obj==="Boho-chic")
                           this.setState({styleData: bohoChic});
-                        else if(obj=="Sexy")
+                        else if(obj==="Sexy")
                           this.setState({ styleData: sexy });
-                        else if(obj=="Casual")
+                        else if(obj==="Casual")
                           this.setState({ styleData: casual });
-                        else if(obj=="Elegant")
+                        else if(obj==="Elegant")
                           this.setState({ styleData: elegant });
                         this.setState({ styleName: obj});
                         console.log(obj)

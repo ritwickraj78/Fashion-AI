@@ -6,3 +6,6 @@ vscode/
 *build/
 *.c
 *.pyd
+__pycache__
+
+backend/static/*
