@@ -28,12 +28,18 @@ class Color(BaseModel):
       raise ValidationError("Color value should be in between 0 & 255 (inclusive).")
     return v
 
-class Product(BaseModel):
+class BaseProduct(BaseModel):
   image: str
   pattern: Optional[str]
   avg_rating: float
+
+class Product(BaseProduct):
   n_reviews: int
   trend: float
   color1: Color
   color2: Color
   color3: Color
+
+class ProductDetails(BaseProduct):
+  price: str
+  date_of_firstrev: str
