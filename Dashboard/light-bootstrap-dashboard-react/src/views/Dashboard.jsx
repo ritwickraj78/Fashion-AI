@@ -9,9 +9,12 @@ import {
   bohoChic,
   elegant,
   sexy,
-  responsiveData,
+  vneck,
+  sneck,
   legendData,
+  roundneck,
   Stylemenu,
+  Neckmenu
 } from "variables/Variables.jsx";
 
 
@@ -25,9 +28,17 @@ class Dashboard extends Component {
       styleOptions: {
         title: "Trend",
         vAxis: { viewWindowMode: "explicit", viewWindow: { min: 0 } },
-        curveType: "line",
+        curveType: "function",
         legend: { position: "bottom" },
       },
+      neckName: "Round neck",
+      neckData: roundneck,
+      neckOptions:{
+        title: "Trend",
+        vAxis: { viewWindowMode: "explicit", viewWindow: { min: 0 } },
+        curveType: "function",
+        legend: { position: "bottom" },
+      }
     };
   }
 
@@ -126,26 +137,41 @@ class Dashboard extends Component {
 
           <Row>
             <Col lg={12}>
+              <DropdownButton bsStyle="default" title="Necklines">
+                {Neckmenu.map((obj) => {
+                  return (
+                    <MenuItem
+                      onSelect={(event) => {
+                        if (obj === "Round neck")
+                          this.setState({ neckData: roundneck });
+                        else if (obj === "V neck")
+                          this.setState({ neckData: vneck });
+                        else if (obj === "Spaghetti style")
+                          this.setState({ neckData: sneck  });
+                        this.setState({ neckName: obj });
+                        console.log(obj)
+                      }}>
+                      {obj}
+                    </MenuItem>
+                  );
+                })}
+              </DropdownButton>
               <Card
                 statsIcon="fa fa-history"
                 id="chartHours"
-                title="Style Trends"
-                category={this.state.styleName}
-                stats="Updated 3 minutes ago"
+                title="Neckline Trends for Women's Tops"
+                category={this.state.neckName}
+                stats="Updated til April, 2020"
                 content={
                   <div className="ct-chart">
                     <Chart
                       chartType="LineChart"
                       width="100%"
-                      height="350px"
-                      data={this.state.styleData}
-                      options={this.state.styleOptions}
-                      responsiveOptions={responsiveData}
+                      height="105%"
+                      data={this.state.neckData}
+                      options={this.state.neckOptions}
                     />
                   </div>
-                }
-                legend={
-                  <div className="legend">{this.createLegend(legendData)}</div>
                 }
               />
             </Col>
