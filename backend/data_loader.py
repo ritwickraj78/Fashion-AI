@@ -16,4 +16,7 @@ color_model2 = [joblib.load(os.path.join(MODELS, "color20_model.sav")),
                 joblib.load(os.path.join(MODELS, "color25_model.sav"))]
 
 with open(os.path.join(DATASETS, "ColorCluster.json")) as fp:
+  color_cluster = json.load(fp)
+
+with open(os.path.join(DATASETS, "fashion_db.json"), encoding='utf-8') as fp:
   fashion_data = json.load(fp)
