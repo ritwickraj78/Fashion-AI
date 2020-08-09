@@ -26,7 +26,7 @@ class Dashboard extends Component {
       styleName : "Boho-Chic",
       styleData: bohoChic,
       styleOptions: {
-        title: "Trend",
+        title: "Trend vs Time",
         vAxis: { viewWindowMode: "explicit", viewWindow: { min: 0 } },
         curveType: "function",
         legend: { position: "bottom" },
@@ -34,7 +34,7 @@ class Dashboard extends Component {
       neckName: "Round neck",
       neckData: roundneck,
       neckOptions:{
-        title: "Trend",
+        title: "Trend vs Time",
         vAxis: { viewWindowMode: "explicit", viewWindow: { min: 0 } },
         curveType: "function",
         legend: { position: "bottom" },
