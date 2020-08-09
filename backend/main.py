@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from typing import List
 
@@ -7,8 +8,22 @@ from data_models import Styles, StyleList, StyleTrend, Trend, Color, Product
 from functions import get_top_n_products
 from settings import APP_NAME, STATIC
 
+
 app = FastAPI()
 app.mount(STATIC, StaticFiles(directory="static"), name="static")
+
+origins = [
+    "http://localhost",
+    "http://localhost:3000",
+    "http://localhost:3000/admin/coloranalysis"
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get('/')
 def index():
